@@ -1,0 +1,26 @@
+{
+  "name": "dailydetails",
+  "version": "0.1.0",
+  "dependencies": {
+    "express": ">=3.0.6",
+    "redis": ">=0.8.2",
+    "connect-redis": ">=1.4.5",
+    "ejs": ">=0.0.0",
+    "async": ">=0.0.0",
+    "mongoose": ">=0.0.0",
+    "ejs-locals": ">=0.2.6",
+    "passport": ">=0.0.0",
+    "passport-local": ">=0.0.0",
+    "connect-flash": ">=0.0.0",
+    "moment": ">=2.0.0",
+    "socket.io": ">=0.9.14",
+    "fileupload": "~0.2.4"
+  },
+  "engines": {
+    "node": ">=0.8.x",
+    "npm": "1.1.x"
+  },
+  "scripts": {
+    "start": "app.js"
+  }
+}
