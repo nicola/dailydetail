@@ -3,7 +3,8 @@
 <div class="container">
   <header>
     <div class="masthead">
-      <h3 class="muted">Hello <%= user.username%></h3>
+      <% include partials/user_actions %>
+      <h3 class="muted"><%= page.username%></h3>
     </div>
   </header>
   <div id="wrapper">

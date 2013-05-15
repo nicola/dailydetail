@@ -14,7 +14,10 @@
     "connect-flash": ">=0.0.0",
     "moment": ">=2.0.0",
     "socket.io": ">=0.9.14",
-    "fileupload": "~0.2.4"
+    "fileupload": "~0.2.4",
+    "underscore": "~1.4.4",
+    "q": "~0.9.3",
+    "hh": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.x",
