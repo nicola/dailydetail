@@ -1,17 +1,26 @@
 <% include partials/head %>
 
-<div class="container">
-  <header>
-    <div class="masthead">
-      <h3 class="muted">Hello <%= user.username%></h3>
+<div class="container" id="wrapper">
+  <div class="streams">
+  <% streams.forEach(function(stream){ %>
+    <div class="stream">
+      <div class="previews">
+        <div class="preview deg30"></div>
+        <div class="preview deg30m"></div>
+        <div class="preview">
+          <div class="image" style="background-image: url('/images/nesli.png')"></div>
+          <div class="details">
+            <strong><%- linkStream(stream) %></strong>
+            <span class="detail"><i class="fui-heart"></i> 32</span>
+            <span class="detail"><i class="fui-eye"></i> 32</span>
+            <span class="detail"><i class="fui-image"></i> <%= stream.pictures.length %></span>
+
+          </div>
+        </div>
+      </div>
     </div>
-  </header>
-  <div id="wrapper">
-    <% streams.forEach(function(stream){ %>
-    <strong><%= stream %></strong>
-    <% }) %>
+  <% }) %>
   </div>
-  <footer></footer>
 </div>
 
 <% include partials/foot %>

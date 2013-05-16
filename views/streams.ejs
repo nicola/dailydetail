@@ -1,18 +1,56 @@
 <% include partials/head %>
 
-<div class="container">
-  <header>
-    <div class="masthead">
-      <% include partials/user_actions %>
-      <h3 class="muted"><%= page.username%></h3>
+<div class="row-fluid">
+  <div id="sidebar" class="span3 side">
+    <header>
+      <a href="/"><span class="fui-home"></span></a>
+      <a href="/settings"><span class="fui-gear"></span></a>
+      <a href="/logout"><span class="fui-power"></span></a>
+    </header>
+    <div class="roundface" style="background-image: url(/images/testimg.png)">
     </div>
-  </header>
-  <div id="wrapper">
-    <% streams.forEach(function(stream){ %>
-    <strong><%= stream %></strong>
-    <% }) %>
+    <h3 class="muted"><%- linkUser(page)%></h3>
+    <!--<div class="btn-col">
+      <a href="#fakelink" class="btn btn-huge btn-block btn-success btn-embossed">Focus</a>
+    </div>-->
+    <ul class="user-list">
+      <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Testa</strong>: 30</li>
+      <li><strong><i class="fui-eye"></i>&nbsp;&nbsp; Watching</strong>: 30</li>
+      <li><strong><i class="fui-image"></i>&nbsp;&nbsp; Foci</strong>: 30</li>
+      <li><strong><i class="fui-photo"></i>&nbsp;&nbsp; Pics</strong>: 30</li>
+    </ul>
   </div>
-  <footer></footer>
+  <div class="span8 offset3" id="wrapper">
+    <div class="streams">
+      <% streams.forEach(function(stream){ %>
+      <div class="stream">
+        <div class="previews">
+          <div class="preview deg30"></div>
+          <div class="preview deg30m"></div>
+          <div class="preview default">
+            <div class="image" style="background-image: url('/images/nesli.png')"></div>
+            <div class="details">
+              <strong><%- linkStream(stream) %></strong>
+              <span class="detail"><i class="fui-heart"></i> 32</span>
+              <span class="detail"><i class="fui-eye"></i> 32</span>
+              <span class="detail"><i class="fui-image"></i> <%= stream.pictures.length %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+      <div class="stream">
+        <div class="previews faden">
+          <div class="preview deg30"></div>
+          <div class="preview deg30m"></div>
+          <div class="preview"></div>
+          <div class="default">
+            <h4><a href="#">Create new</a></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <% include partials/foot %>

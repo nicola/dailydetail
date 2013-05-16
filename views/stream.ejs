@@ -8,6 +8,11 @@
       <% include partials/nav %>
     </div>
   </header>
+  <div id="wrapper">
+    <% if (stream.pictures.length === 0) { %>
+    No picture, yet<% if (user) { %> <a>upload your first</a> <% } %>!
+    <% } %>
+  </div>
   <footer></footer>
 </div>
 

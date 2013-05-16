@@ -19,6 +19,13 @@ var db = require('./models/index');
 
 var app = module.exports = express();
 
+function page(id) {
+  return function(req, res, next) {
+    res.locals.bodyClass = id;
+    next();
+  }
+}
+
 app.locals.linkStream = function(stream) {
   return '<a href="/stream/'+stream.url+'">'+stream.title+'</a>';
 };
@@ -45,18 +52,17 @@ app.configure(function () {
 });
 
 
-app.get('/', auth.logged, function(req, res) {
-  res.locals.user = req.user || {};
+app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
   Stream.model.find({}).limit(5).populate('user pictures').exec()
     .then(function(streams) {
+      res.locals.page = req.user;
       res.locals.streams = streams;
       res.render("index");
     })
     .end();
 });
 
-app.get('/streams', auth.logged, function(req, res) {
-  res.locals.user = req.user;
+app.get('/streams', page("streams"), auth.req, auth.logged, function(req, res) {
   Stream.model.find({user: req.user._id}).exec()
     .then(function(streams){
       res.locals.page = req.user;
@@ -66,7 +72,7 @@ app.get('/streams', auth.logged, function(req, res) {
     .end();
 });
 
-app.get('/user/:userUsername', function(req, res) {
+app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
   User.model.findOne({username: req.params.userUsername}).exec()
     .then(function(user) {
       if (!user) return res.redirect("/404");
@@ -80,7 +86,7 @@ app.get('/user/:userUsername', function(req, res) {
     .end();
 });
 
-app.get('/stream/:streamUrl', function(req, res) {
+app.get('/stream/:streamUrl', page('stream'), auth.req, function(req, res) {
   Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate('pictures').exec()
     .then(function(stream) {
       if (!stream) return res.redirect('404');
@@ -90,10 +96,11 @@ app.get('/stream/:streamUrl', function(req, res) {
     });
 });
 
-
 // Authentication
 app.get("/404", function(req, res) { return res.render("404"); });
-app.get("/login", function (req, res) { return res.render("login"); });
+app.get("/login", page("login"), function (req, res) {
+  return res.render("login");
+});
 app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/logout', function (req, res) { req.logout(); res.redirect('/'); });
 
@@ -153,7 +160,18 @@ var server = http.createServer(app).listen(port, function () {
 });
 
 User.model.findOne({username: 'bing'}, function (err, first_user) {
-  if (first_user) return;
+  if (first_user) {
+    var first_stream = new Stream.model({
+      user: first_user,
+      title: "test1",
+      url: "test1",
+      description: "test"
+    });
+    first_user.streams.push(first_stream);
+    first_user.save();
+    first_stream.save();
+    return;
+  }
 
   first_user = new User.model({ username: 'bing', password: 'pass' });
   var first_stream = new Stream.model({

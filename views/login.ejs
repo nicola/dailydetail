@@ -1,19 +1,25 @@
-<html ng-app="edo">
-<head>
-  <title>login</title>
-</head>
-<body>
-  <form action="/login" method="post">
-      <div class="formUsername">
-          <input type="text" name="username" placeholder="Virginia?"/>
+<% include partials/head %>
+
+<div class="container">
+  <div class="login-icon span2 offset2">
+    <h4>Welcome to <small>DailyDetail</small></h4>
+    <img class="icon" src="/images/icons/Egg@2x.png" alt="">
+  </div>
+
+  <form class="login-form span4" form action="/login" method="post">
+    <div class="inside">
+      <div class="control-group huge">
+        <input type="text" name="username" class="input-block-level login-field flat" value="" placeholder="Virginia Alonso" id="login-name">
+        <label class="login-field-icon fui-user" for="login-name"></label>
       </div>
-      <div class="formPassword">
-          <input type="password" name="password" placeholder="Password"/>
+      <div class="control-group huge">
+        <input type="password" name="password" class="input-block-level login-field flat " value="" placeholder="Uhh! Private!" id="login-pass">
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
       </div>
-      <div>
-          <input type="submit" value="Log In"/>
-      </div>
+
+      <button class="btn btn-primary btn-large btn-embossed btn-block" href="#">Login</button>
+      <a class="login-link" href="#">Lost your password?</a>
+    </div>
   </form>
-</body>
-</html>
-<% include ./picture %>
+</div>
+<% include partials/foot %>
