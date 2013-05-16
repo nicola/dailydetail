@@ -1,0 +1,23 @@
+<div class="span8 offset3" id="wrapper">
+  <% if (stream.pictures.length === 0) { %>
+    <% if (user) { %>
+  <div class="alert alert-success">
+    <button type="button" class="close fui-cross" data-dismiss="alert"></button>
+    <h3>Cannot find inspiration?</h3>
+    <p>Everyday our users posts lot of strange and acute ideas that you should definitely consider!</p>
+    <a href="#fakelink" class="btn btn-primary btn-wide"><span class="fui-upload"></span> Drag or Upload a picture</a>
+    <a href="#fakelink" class="btn btn-info btn-wide"><span class="fui-search"></span> Find inspiration</a>
+  </div>
+    <% } else { %>
+  <div class="alert alert-error">
+    <button type="button" class="close fui-cross" data-dismiss="alert"></button>
+    <h3>How sad is that?</h3>
+    <p>This stream of picture is more empty than an empty picture :(</p>
+    <p>You should come back when there is something, meanwhile</p>
+    <a href="/random" class="btn btn-danger btn-wide">Mingle randomly</a>
+    <a href="/" class="btn btn-wide">Go home</a>
+  </div>
+    <% } %>
+  <% } %>
+
+</div>

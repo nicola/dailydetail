@@ -1,0 +1,36 @@
+<div class="span8 offset3" id="wrapper">
+  <header>
+    <input type="text" name="search" class="input-block-level flat " value="" placeholder="Want to look something in particular?" id="login-pass">
+  </header>
+  <div class="streams">
+    <% streams.forEach(function(stream){ %>
+    <div class="stream">
+      <div class="previews">
+        <div class="preview deg30"></div>
+        <div class="preview deg30m"></div>
+        <div class="preview default">
+          <div class="image" style="background-image: url('/images/nesli.png')"></div>
+          <div class="details">
+            <strong><%- linkStream(stream) %></strong>
+            <div class="pull-right">
+              <span class="detail"><i class="fui-heart"></i> 32</span>
+              <span class="detail"><i class="fui-eye"></i> 32</span>
+              <span class="detail"><i class="fui-image"></i> <%= stream.pictures.length %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    <div class="stream">
+      <div class="previews faden">
+        <div class="preview deg30"></div>
+        <div class="preview deg30m"></div>
+        <div class="preview"></div>
+        <div class="default">
+          <h4><a href="/stream/new">Create new</a></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

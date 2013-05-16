@@ -1,19 +1,19 @@
 <% include partials/head %>
 
-<div class="container">
-  <header>
-    <div class="masthead">
-      <% include partials/user_actions %>
-      <h3 class="muted"><%- linkUser(stream.user) %> / <%- linkStream(stream)%></h3>
-      <% include partials/nav %>
+<div class="row-fluid">
+  <div id="sidebar" class="span3 side">
+    <% include partials/user_actions %>
+    <div class="roundfaces">
+      <span class="roundface small" style="background-image: url(/images/testimg.png)"></span>
+      <img src="/images/nesli.png" alt="" class="squareface">
+      <h3><%- linkUser(page)%> / <%- linkStream(stream, "text-info")%></h3>
     </div>
-  </header>
-  <div id="wrapper">
-    <% if (stream.pictures.length === 0) { %>
-    No picture, yet<% if (user) { %> <a>upload your first</a> <% } %>!
-    <% } %>
+    <!--<div class="btn-col">
+      <a href="#fakelink" class="btn btn-huge btn-block btn-success btn-embossed">Focus</a>
+    </div>-->
+    <% include partials/user_list %>
   </div>
-  <footer></footer>
+  <% include partials/stream %>
 </div>
 
 <% include partials/foot %>

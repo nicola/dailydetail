@@ -13,6 +13,7 @@
 #sidebar header a {
   color: rgba(14, 98, 82, 0.7);
   text-shadow: 0px 0px 4px #def, 0 0 0 #000, 0px 0px 0px #def;
+  margin-left: 10px;
 }
 #sidebar header a:hover {
   color: white;
@@ -21,17 +22,35 @@
 #sidebar a {
   color: #fff;
 }
+#sidebar .roundfaces {
+  margin-top: 20px;
+}
+#sidebar .roundfaces .squareface,
+#sidebar .roundfaces .roundface {
+  display: inline-block;
+  vertical-align: middle;
+}
+#sidebar .squareface,
 #sidebar .roundface {
-  height: 130px;
   width: 130px;
   background-color: #fff;
-  border-radius: 999px;
   margin: 0 auto;
-  margin-top: 60px;
   background-position: center center;
   background-size: 100%;
   background-repeat: no-repeat;
   border: 10px solid #fff;
+  margin-top: 20px;
+}
+#sidebar .roundface {
+  height: 130px;
+  border-radius: 999px;
+  margin-top: 60px;
+}
+#sidebar .roundface.small {
+  margin-top: 10px;
+  height: 40px;
+  width: 40px;
+  border: 5px solid #fff;
 }
 #sidebar .user-list {
   list-style: none;
@@ -167,23 +186,31 @@ body.login > .container {
 }
 .preview .image {
   width: auto;
-  height: 120px;
+  height: 130px;
   margin: 10px 10px;
   background-position: center center;
   background-size: 100%;
   background-repeat: no-repeat;
 }
 .details {
-  margin-left: 30px;
+  margin: 0 13px;
 }
 .details .detail {
   font-size: 0.85em;
   color: #7f8c8d;
 }
-.index #wrapper,
-.user #wrapper {
-  clear: both;
+.index #wrapper {
   margin-top: 40px;
+}
+.user #wrapper,
+.streampg #wrapper {
+  margin-top: 27px;
+}
+#wrapper {
+  clear: both;
+}
+#wrapper header {
+  margin-bottom: 40px;
 }
 #sidemenu {
   margin: 20px;

@@ -19,6 +19,7 @@
     a {
       color: rgba(14, 98, 82, 0.7);
       text-shadow: 0px 0px 4px #def, 0 0 0 #000, 0px 0px 0px #def;
+      margin-left: 10px;
       &:hover {
         color: white;
         text-shadow: none;
@@ -28,17 +29,33 @@
   a {
     color: #fff;
   }
-  .roundface {
-    height: 130px;
+  .roundfaces {
+    margin-top: 20px;
+    .squareface, .roundface {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .squareface, .roundface {
     width: 130px;
     background-color: #fff;
-    border-radius: 999px;
     margin: 0 auto;
-    margin-top: 60px;
     background-position: center center;
     background-size: 100%;
     background-repeat: no-repeat;
     border: 10px solid #fff;
+    margin-top: 20px;
+  }
+  .roundface {
+    height: 130px;
+    border-radius: 999px;
+    margin-top: 60px;
+    &.small {
+      margin-top: 10px;
+      height: 40px;
+      width: 40px;
+      border: 5px solid #fff;
+    }
   }
   .user-list {
     list-style: none;
@@ -171,7 +188,7 @@ body.login {
   }
   .image {
     width: auto;
-    height: @previewHeight - 60px;
+    height: @previewHeight - 50px;
     margin: 10px 10px;
     background-position: center center;
     background-size: 100%;
@@ -179,15 +196,23 @@ body.login {
   }
 }
 .details {
-  margin-left: 30px;
+  margin: 0 13px;
   .detail {
     font-size: 0.85em;
     color: #7f8c8d;
   }
 }
-.index #wrapper, .user #wrapper {
-  clear: both;
+.index #wrapper {
   margin-top: 40px;
+}
+.user #wrapper, .streampg #wrapper {
+  margin-top: 27px;
+}
+#wrapper {
+  clear: both;
+  header {
+    margin-bottom: 40px;
+  }
 }
 #sidemenu {
   margin: 20px;

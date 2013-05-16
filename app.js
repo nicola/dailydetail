@@ -26,11 +26,13 @@ function page(id) {
   }
 }
 
-app.locals.linkStream = function(stream) {
-  return '<a href="/stream/'+stream.url+'">'+stream.title+'</a>';
+app.locals.linkStream = function(stream, classes) {
+  classes = classes ?  'class="'+classes+'"' : "";
+  return '<a href="/stream/'+stream.url+'" '+classes+'>'+stream.title+'</a>';
 };
-app.locals.linkUser = function(user) {
-  return '<a href="/user/'+user.username+'">'+user.username+'</a>';
+app.locals.linkUser = function(user, classes) {
+  classes = classes ?  'class="'+classes+'"' : "";
+  return '<a href="/user/'+user.username+'" '+classes+'>'+user.username+'</a>';
 };
 
 ejs.filters.sayHi = function(name) {
@@ -86,12 +88,13 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
     .end();
 });
 
-app.get('/stream/:streamUrl', page('stream'), auth.req, function(req, res) {
+app.get('/stream/:streamUrl', page('streampg'), auth.req, function(req, res) {
   Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate('pictures').exec()
     .then(function(stream) {
       if (!stream) return res.redirect('404');
       stream = stream.toObject();
       res.locals.stream = stream;
+      res.locals.page = stream.user;
       res.render('stream');
     });
 });
