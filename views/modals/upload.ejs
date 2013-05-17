@@ -1,0 +1,30 @@
+<div id="uploadModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+</div>
+<script id="upload_tpl" type="text/html">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 id="uploadModalLabel">Upload picture</h4>
+  </div>
+  <div class="modal-body">
+    <form id="uploadForm" class="form-horizontal" enctype="multipart/form-data">
+      <div class="control-group">
+        <label class="control-label" for="newPictureUpload">Upload</label>
+        <div class="controls">
+          <input type="file" name="upload" id="newPictureUpload">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="newPictureTitle">Note</label>
+        <div class="controls">
+          <input value="" name="title" type="text" minlength="4" id="newPictureTitle" placeholder="Description">
+          <p class="help-block"></p>
+        </div>
+      </div>
+      <progress id="progress"></progress>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-embossed" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button id="savePicture" class="btn btn-primary btn-embossed" data-subject="{{_id}}">Save</button>
+  </div>
+</script>

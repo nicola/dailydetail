@@ -6,9 +6,10 @@ mongoose.model("Picture", new Schema({
   user: { type: Schema.ObjectId, ref: 'User' },
   stream: { type: Schema.ObjectId, ref: 'Stream' },
   title: String,
-  description: String,
-  picture: String,
-  tags: String
+  tags: String,
+  size: Number,
+  type: String,
+  path: String
 }));
 
 module.exports = {

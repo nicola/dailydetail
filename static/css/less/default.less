@@ -5,27 +5,13 @@
 @orange: #f39c12;
 @silver: #bdc3c7;
 @concrete: #95a5a6;
+@alizarin: #e74c3c;
 #sidebar {
   background-color: @turquoise;
   color: white;
   height: 100%;
   position: fixed;
   text-align: center;
-  header {
-
-    top: 0px;
-    padding-top: 30px;
-    font-size: 2em;
-    a {
-      color: rgba(14, 98, 82, 0.7);
-      text-shadow: 0px 0px 4px #def, 0 0 0 #000, 0px 0px 0px #def;
-      margin-left: 10px;
-      &:hover {
-        color: white;
-        text-shadow: none;
-      }
-    }
-  }
   a {
     color: #fff;
   }
@@ -43,7 +29,7 @@
     background-position: center center;
     background-size: 100%;
     background-repeat: no-repeat;
-    border: 10px solid #fff;
+    border: 5px solid #fff;
     margin-top: 20px;
   }
   .roundface {
@@ -60,6 +46,7 @@
   .user-list {
     list-style: none;
     margin: 0 30px;
+    font-weight: 200;
     li {
       text-align: left;
       list-style: none;
@@ -68,10 +55,25 @@
     }
   }
 }
+#user_action {
+
+  top: 0px;
+  padding-top: 20px;
+  font-size: 2em;
+  a {
+    color: rgba(14, 98, 82, 0.7);
+    text-shadow: 0px 0px 4px #def, 0 0 0 #000, 0px 0px 0px #def;
+    margin-left: 10px;
+    &:hover {
+      color: white;
+      text-shadow: none;
+    }
+  }
+}
 body {
   background-color: @clouds;
 }
-body.login {
+body.login, body.index {
   background-color: @turquoise;
   & > .container {
     margin-top: 160px;
@@ -202,11 +204,17 @@ body.login {
     color: #7f8c8d;
   }
 }
+.streampg #wrapper {
+  #userInteract {
+    margin-top: -45px;
+    float: right;
+  }
+}
 .index #wrapper {
   margin-top: 40px;
 }
 .user #wrapper, .streampg #wrapper {
-  margin-top: 27px;
+  margin-top: 17px;
 }
 #wrapper {
   clear: both;
@@ -242,5 +250,47 @@ body.login {
   margin-top: 30px;
   .popover-content {
     color: #34495e;
+  }
+}
+#droppable {
+  position: fixed;
+  height: 60px;
+  width: 60px;
+  right: 20px;
+  border-radius: 999px;
+  background-color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  background-color:@silver;
+  z-index: -1;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease; /* Safari */
+  -moz-transition: all 0.3s ease; /* Safari */
+  opacity: 0.6;
+  .icon {
+    font-size: 30px;
+    color: rgba(38, 38, 53, 0.70);
+    text-shadow: 0px 0px 4px #def, 0 0 0 #000, 0px 0px 0px #def;
+    margin-top: 10px;
+    margin-left: 1px;
+  }
+  &.active {
+    height: 180px;
+    width: 180px;
+    opacity: 1;
+    .icon {
+      margin-top: 15px;
+      margin-left: -7px;
+      font-size:120px;
+    }
+  }
+}
+.picture {
+  padding: 20px;
+  background: #fff;
+  margin-bottom: 40px;
+  .detail {
+    margin-top: 20px;
+    text-align: center;
   }
 }

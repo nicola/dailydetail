@@ -1,12 +1,21 @@
 <div class="span8 offset3" id="wrapper">
+  <h4><%- linkStream(stream) %></h4>
+  <div id="userInteract" class="go-group btn-group" data-subject="<%= stream._id %>" data-title="<%= stream.title %>" data-url="<%= stream.url %>" data-description="<%= stream.description %>">
+    <a class="go-upload btn btn-primary btn-embossed"><i class="fui-upload"></i></a>
+    <a class="go-settings btn btn-primary btn-embossed"><span class="fui-new"></span></a>
+    <% if (String(page._id) == String(user._id)) { %><a class="go-delete btn btn-danger btn-embossed"><i class="fui-cross"></i></a><% } %>
+  </div>
+  <hr>
   <% if (stream.pictures.length === 0) { %>
     <% if (user) { %>
   <div class="alert alert-success">
     <button type="button" class="close fui-cross" data-dismiss="alert"></button>
     <h3>Cannot find inspiration?</h3>
     <p>Everyday our users posts lot of strange and acute ideas that you should definitely consider!</p>
-    <a href="#fakelink" class="btn btn-primary btn-wide"><span class="fui-upload"></span> Drag or Upload a picture</a>
-    <a href="#fakelink" class="btn btn-info btn-wide"><span class="fui-search"></span> Find inspiration</a>
+    <span class="go-group" data-subject="<%= stream._id %>" data-title="<%= stream.title %>" data-url="<%= stream.url %>" data-description="<%= stream.description %>">
+      <a class="go-settings btn btn-primary btn-wide btn-embossed"><span class="fui-upload"></span> Drag or Upload a picture</a>
+    </span>
+    <a href="#fakelink" class="btn btn-info btn-wide btn-embossed"><span class="fui-search"></span> Find inspiration</a>
   </div>
     <% } else { %>
   <div class="alert alert-error">
@@ -14,10 +23,21 @@
     <h3>How sad is that?</h3>
     <p>This stream of picture is more empty than an empty picture :(</p>
     <p>You should come back when there is something, meanwhile</p>
-    <a href="/random" class="btn btn-danger btn-wide">Mingle randomly</a>
-    <a href="/" class="btn btn-wide">Go home</a>
+    <a href="/random" class="btn btn-danger btn-wide btn-embossed">Mingle randomly</a>
+    <a href="/" class="btn btn-wide btn-embossed">Go home</a>
   </div>
     <% } %>
-  <% } %>
+  <% } else { %>
+
+  <div class="pictures">
+  <% stream.pictures.forEach(function(picture){ %>
+    <div class="picture">
+      <img src="http://nicolaretina.local:1200<%= picture.path %>" alt="<%= picture.title %>">
+      <div class="detail"><%= picture.title %></div>
+    </div>
+  <% }) %>
+  </div>
+
+  <% }%>
 
 </div>

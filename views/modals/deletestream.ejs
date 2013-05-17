@@ -1,0 +1,16 @@
+<div id="deleteStreamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteStreamModalLabel" aria-hidden="true"></div>
+<script id="deleteStream_tpl" type="text/html">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 id="deleteStreamModalLabel">Are you sure?</h4>
+  </div>
+  <div class="modal-body">
+    You are trying to delete
+    After deleting it will be lost forever! Do a backup first!
+  </div>
+  <div class="modal-footer">
+    <button class="btn  btn-embossed" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button class="btn btn-warning  btn-embossed" data-dismiss="modal" aria-hidden="true">Do backup</button>
+    <button id="deleteStream" class="btn btn-danger btn-embossed" data-subject="{{_id}}">Delete</button>
+  </div>
+</script>
