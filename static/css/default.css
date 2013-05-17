@@ -197,6 +197,10 @@ body.index > .container {
 }
 .details {
   margin: 0 13px;
+  overflow: hidden;
+}
+.details > * {
+  display: inline-block;
 }
 .details .detail {
   font-size: 0.85em;
@@ -285,8 +289,52 @@ body.index > .container {
   padding: 20px;
   background: #fff;
   margin-bottom: 40px;
+  text-align: center;
 }
 .picture .detail {
   margin-top: 20px;
+}
+.modal-backdrop {
+  opacity: 1;
+  background-color: #1abc9c;
+}
+.modal {
+  background-color: #eceff1;
+  border: 0px;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+.modal > * {
+  padding: 0 40px;
+}
+.modal .modal-header {
+  padding-top: 30px;
+}
+.modal .modal-body {
+  border: 0;
+  box-shadow: 0;
+  -webkit-box-shadow: 0;
+}
+.modal .modal-footer {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  border-top: 0px !important;
+  background-color: transparent;
   text-align: center;
+  padding-bottom: 30px;
+}
+.modal .modal-absolute {
+  position: absolute;
+}
+@media (max-width: 767px) {
+  #sidebar {
+    position: relative;
+  }
+  #sidebar .roundfaces > a {
+    display: none !important;
+  }
+  #sidebar .user-list li {
+    display: inline-table;
+    border-bottom: 0px;
+  }
 }

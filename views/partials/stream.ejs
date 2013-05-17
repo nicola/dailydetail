@@ -8,12 +8,12 @@
   <hr>
   <% if (stream.pictures.length === 0) { %>
     <% if (user) { %>
-  <div class="alert alert-success">
+  <div id="nopics" class="alert alert-success">
     <button type="button" class="close fui-cross" data-dismiss="alert"></button>
     <h3>Cannot find inspiration?</h3>
     <p>Everyday our users posts lot of strange and acute ideas that you should definitely consider!</p>
     <span class="go-group" data-subject="<%= stream._id %>" data-title="<%= stream.title %>" data-url="<%= stream.url %>" data-description="<%= stream.description %>">
-      <a class="go-settings btn btn-primary btn-wide btn-embossed"><span class="fui-upload"></span> Drag or Upload a picture</a>
+      <a class="go-upload btn btn-primary btn-wide btn-embossed"><span class="fui-upload"></span> Drag or Upload a picture</a>
     </span>
     <a href="#fakelink" class="btn btn-info btn-wide btn-embossed"><span class="fui-search"></span> Find inspiration</a>
   </div>
@@ -27,11 +27,12 @@
     <a href="/" class="btn btn-wide btn-embossed">Go home</a>
   </div>
     <% } %>
+  <div class="pictures"></div>
   <% } else { %>
 
   <div class="pictures">
   <% stream.pictures.forEach(function(picture){ %>
-    <div class="picture">
+    <div class="picture" id="picture_<%= picture._id %>">
       <img src="http://nicolaretina.local:1200<%= picture.path %>" alt="<%= picture.title %>">
       <div class="detail"><%= picture.title %></div>
     </div>

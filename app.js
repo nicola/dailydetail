@@ -63,7 +63,7 @@ app.configure(function () {
 
 
 app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
-  Stream.model.find({}).limit(5).populate('user pictures').exec()
+  Stream.model.find({}).limit(5).populate('user').populate({path: 'pictures', options: { limit: 5 }}).exec()
     .then(function(streams) {
       res.locals.page = req.user;
       res.locals.streams = streams;
@@ -72,8 +72,8 @@ app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
     .end();
 });
 
-app.get('/streams', page("streams"), auth.req, auth.logged, function(req, res) {
-  Stream.model.find({user: req.user._id}).exec()
+app.get('/streams', page("user"), auth.req, auth.logged, function(req, res) {
+  Stream.model.find({user: req.user._id}).populate({path: 'pictures', options: { limit: 5 }}).exec()
     .then(function(streams){
       res.locals.page = req.user;
       res.locals.streams = streams || [];
@@ -87,7 +87,7 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
     .then(function(user) {
       if (!user) return res.redirect("/404");
       res.locals.page = user;
-      return Stream.model.find({user: user._id}).exec();
+      return Stream.model.find({user: user._id}).populate({path: 'pictures', options: { limit: 5 }}).exec();
     }).
     then(function(streams) {
       res.locals.streams = streams || [];
@@ -97,7 +97,7 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
 });
 
 app.get('/stream/:streamUrl', page('streampg'), auth.req, function(req, res) {
-  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate('pictures').exec()
+  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate({path: 'pictures', options: { limit: 5 }}).exec()
     .then(function(stream) {
       if (!stream) return res.redirect('404');
       var stream1 = stream.toObject();
@@ -124,7 +124,7 @@ app.post('/api/v1/stream', auth.req, auth.logged, function(req, res) {
     qm.save(newStream),
     qm.exec(User.model.update(req.user._id, { $addToSet: { streams: newStream } }))
   ).then(function(args) {
-    res.json(args[0]);
+    res.json(args);
   }).done();
 });
 
@@ -150,6 +150,7 @@ app.put('/api/v1/stream/:streamId', function(req, res) {
 
 app.post('/api/v1/stream/:streamId', function(req, res) {
   Stream.model.findById(req.params.streamId).exec(function(err, stream) {
+    console.log("upload into", stream);
     if (err || !stream) return res.json(500, {message:"Nothing found"});
     var newPic = new Picture.model({
       user: req.user._id,
@@ -159,10 +160,12 @@ app.post('/api/v1/stream/:streamId', function(req, res) {
       path: req.files.upload.path.replace(__dirname+"/static", ''),
       stream:req.params.streamId
     });
+    stream.pictures.addToSet(newPic);
     Q.when(
       qm.save(newPic),
-      qm.exec(Stream.model.update(req.params.streamId, { $addToSet: {pictures: newPic}}))
+      qm.save(stream)
     ).then(function(args) {
+        console.log(args);
       res.json(args);
     }, console.log)
   });

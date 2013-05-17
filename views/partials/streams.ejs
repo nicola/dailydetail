@@ -4,23 +4,7 @@
   </header>
   <div class="streams">
     <% streams.forEach(function(stream){ %>
-    <div class="stream">
-      <div class="previews">
-        <div class="preview deg30"></div>
-        <div class="preview deg30m"></div>
-        <div class="preview default">
-          <div class="image" style="background-image: url('/images/nesli.png')"></div>
-          <div class="details">
-            <strong><%- linkStream(stream) %></strong>
-            <div class="pull-right">
-              <span class="detail"><i class="fui-heart"></i> 32</span>
-              <span class="detail"><i class="fui-eye"></i> 32</span>
-              <span class="detail"><i class="fui-image"></i> <%= stream.pictures.length %></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <% include ./streamunit %>
     <% }) %>
     <div class="stream">
       <div class="previews faden">

@@ -21,6 +21,18 @@
   Stream.prototype.delete = function() {};
   Stream.prototype.update = function() {};
 
+  function Picture(id) {
+    this.id = id;
+  }
+  Picture.prototype.delete = function() {};
+  Picture.prototype.add = function(title, link) {
+    $(".pictures").prepend(
+    '<div class="picture"> \
+        <img src="http://nicolaretina.local:1200'+link+'" alt="'+title+'"> \
+        <div class="detail">'+title+'</div> \
+      </div>');
+  };
+
   function Template(tpl, data) {
     var template = $("#"+tpl).html();
     return (Handlebars.compile(template))(data);
@@ -43,7 +55,7 @@
 
     function progressHandlingFunction(e){
       if(e.lengthComputable){
-        $('#progress').attr({value:e.loaded,max:e.total});
+        $('#progress .bar').css("width", (e.loaded/e.total)*100+"%");
       }
     }
 
@@ -58,6 +70,7 @@
     $('#savePicture').live('click', function(){
       var formData = new FormData(document.getElementById('uploadForm'));
       var id = $(this).attr("data-subject");
+      console.log("id to upload",id);
       $.ajax({
         url: '/api/v1/stream/'+id,  //server script to process data
         type: 'POST',
@@ -71,6 +84,9 @@
         //Ajax events
         success: function(data) {
           console.log("done", data);
+          var newPic = new Picture(data._id);
+          newPic.add(data.title, data.path);
+          $("#nopics").hide();
           $(".modal").modal('hide');
         },
         // Form data
@@ -94,6 +110,7 @@
         var stream = new Stream(id);
         stream.delete();
         $(".modal").modal('hide');
+        window.location = "/streams";
       }})
     });
 
@@ -111,6 +128,7 @@
       $.post("/api/v1/stream", toSend, function(data) {
         console.log(data);
         $(".modal").modal('hide');
+        window.location = "/stream/"+data.url;
       });
     });
 

@@ -4,32 +4,33 @@
     <h4 id="newStreamLabel">New stream</h4>
   </div>
   <div class="modal-body">
-    <form class="form-horizontal" novalidate>
-      <div class="control-group">
-        <label class="control-label" for="newStreamTitle">Title</label>
+    <form class="login-form" novalidate>
+      <div class="control-group huge">
         <div class="controls">
-          <input value="" type="text" minlength="4" id="newStreamTitle" placeholder="Ali the old chap">
+          <input class="input-block-level login-field flat" value="" type="text" minlength="4" id="newStreamTitle" placeholder="Ali the old chap">
+          <label class="login-field-icon fui-tag"></label>
           <p class="help-block"></p>
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="newStreamDescription">Tagline</label>
+      <div class="control-group huge">
         <div class="controls">
-          <input value="" type="text" minlength="4" id="newStreamDescription" placeholder="He is a cool guy">
+          <input class="input-block-level login-field flat" value="" type="text" minlength="4" id="newStreamDescription" placeholder="He is a cool guy">
+          <label class="login-field-icon fui-document"></label>
           <p class="help-block"></p>
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="newStreamUrl">Url</label>
+      <div class="control-group huge">
         <div class="controls">
-          <input value="" type="text" minlength="4" id="newStreamUrl" placeholder="He is a cool guy">
+          <span class="label label-warning">http://dailydetail.com/stream/</span>
+          <input class="input-block-level login-field flat" value="" type="text" minlength="4" id="newStreamUrl" placeholder="ali_the_old_chap">
+          <label class="login-field-icon fui-link"></label>
           <p class="help-block"></p>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-embossed" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button id="createStream" class="btn btn-primary btn-embossed">Create</button>
+    <button id="createStream" class="btn btn-primary btn-large btn-embossed btn-block">Create</button>
+    <a href="#" class="login-link"  data-dismiss="modal" aria-hidden="true">Cancel</a>
   </div>
 </div>

@@ -6,25 +6,25 @@
     <h4 id="uploadModalLabel">Upload picture</h4>
   </div>
   <div class="modal-body">
-    <form id="uploadForm" class="form-horizontal" enctype="multipart/form-data">
-      <div class="control-group">
-        <label class="control-label" for="newPictureUpload">Upload</label>
+    <form id="uploadForm" class="login-form" enctype="multipart/form-data">
+      <div class="control-group huge">
         <div class="controls">
           <input type="file" name="upload" id="newPictureUpload">
+          <label class="login-field-icon fui-photo"></label>
         </div>
       </div>
-      <div class="control-group">
-        <label class="control-label" for="newPictureTitle">Note</label>
+      <div class="control-group huge">
         <div class="controls">
-          <input value="" name="title" type="text" minlength="4" id="newPictureTitle" placeholder="Description">
+          <input class="input-block-level login-field flat" value="" name="title" type="text" minlength="4" id="newPictureTitle" placeholder="Description">
+          <label class="login-field-icon fui-document"></label>
           <p class="help-block"></p>
         </div>
       </div>
-      <progress id="progress"></progress>
+      <div id="progress" class="progress"><div class="bar" style="width: 0%;"></div></div>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-embossed" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button id="savePicture" class="btn btn-primary btn-embossed" data-subject="{{_id}}">Save</button>
+    <button id="savePicture" class="btn btn-primary btn-large btn-embossed btn-block" data-subject="{{_id}}">Upload</button>
+    <a href="#" class="login-link"  data-dismiss="modal" aria-hidden="true">Cancel</a>
   </div>
 </script>
