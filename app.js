@@ -130,7 +130,7 @@ app.post('/api/v1/stream', auth.req, auth.logged, function(req, res) {
 
 app.del('/api/v1/stream/:streamId', function(req, res) {
   Q.when(
-    qm.exec(User.model.update(req.user._id, { $pull: {stream: req.params.streamId } })),
+    qm.exec(User.model.update(req.user._id, { $pull: {streams: req.params.streamId } })),
     qm.exec(Stream.model.remove({_id: req.params.streamId})),
     qm.exec(Picture.model.remove({stream: req.params.streamId}))
   ).then(function(args) {
