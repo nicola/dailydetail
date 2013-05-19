@@ -1,6 +1,14 @@
+<% if (bodyClass === "user") { %>
 <ul class="user-list">
+  <li><strong><i class="fui-user"></i>&nbsp;&nbsp; Bio</strong>: <%= page.description %></li>
   <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Likes</strong>: 30</li>
-  <li><strong><i class="fui-eye"></i>&nbsp;&nbsp; Watching</strong>: 30</li>
   <li><strong><i class="fui-image"></i>&nbsp;&nbsp; Foci</strong>: <%= page.streams.length %></li>
-  <li><strong><i class="fui-photo"></i>&nbsp;&nbsp; Pics</strong>: </li>
 </ul>
+<% } else if (bodyClass === "streampg") { %>
+<ul class="user-list">
+  <li><strong><i class="fui-image"></i>&nbsp;&nbsp; Description</strong>: <%= stream.description %></li>
+  <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Likes</strong>: 30</li>
+  <li><strong><i class="fui-eye"></i>&nbsp;&nbsp; Views</strong>: 30</li>
+  <li><strong><i class="fui-photo"></i>&nbsp;&nbsp; Pics</strong>: <%= stream.pictures.length %></li>
+</ul>
+<% } %>

@@ -7,7 +7,7 @@
     "connect-redis": ">=1.4.5",
     "ejs": ">=0.0.0",
     "async": ">=0.0.0",
-    "mongoose": ">=0.0.0",
+    "mongoose": "~3.6.11",
     "ejs-locals": ">=0.2.6",
     "passport": ">=0.0.0",
     "passport-local": ">=0.0.0",

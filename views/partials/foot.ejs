@@ -11,8 +11,6 @@
 <script src="/js/jqBootstrapValidation.js"></script>
 <script type="text/javascript">
 
-  var stream = <%- typeof stream !== 'undefined' ? JSON.stringify(stream) : false %>;
-
   $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
   function Stream(id) {
@@ -26,6 +24,7 @@
   }
   Picture.prototype.delete = function() {};
   Picture.prototype.add = function(title, link) {
+    $(".squareface").attr("src", link);
     $(".pictures").prepend(
     '<div class="picture"> \
         <img src="http://nicolaretina.local:1200'+link+'" alt="'+title+'"> \
@@ -58,6 +57,16 @@
         $('#progress .bar').css("width", (e.loaded/e.total)*100+"%");
       }
     }
+    $("#step2 .roundface").live('click', function(){
+      var that = this;
+
+      $("#step2 .roundface").removeClass("active").addClass("inactive");
+      $(that).addClass("active").removeClass("inactive");
+      $("#register-sex").attr("value", $(that).attr("data-input"));
+    });
+    $("#createUser").live('click', function(){
+      $("#register-form").submit();
+    });
 
     $('#newPictureUpload').live('change', function(){
       console.log(this);

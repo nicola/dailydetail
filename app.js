@@ -63,7 +63,7 @@ app.configure(function () {
 
 
 app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
-  Stream.model.find({}).limit(5).populate('user').populate({path: 'pictures', options: { limit: 5 }}).exec()
+  Stream.model.find({}).sort('-_id').limit(5).populate('user').populate({path: 'pictures'}).exec()
     .then(function(streams) {
       res.locals.page = req.user;
       res.locals.streams = streams;
@@ -73,7 +73,7 @@ app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
 });
 
 app.get('/streams', page("user"), auth.req, auth.logged, function(req, res) {
-  Stream.model.find({user: req.user._id}).populate({path: 'pictures', options: { limit: 5 }}).exec()
+  Stream.model.find({user: req.user._id}).sort('-_id').populate({path: 'pictures'}).exec()
     .then(function(streams){
       res.locals.page = req.user;
       res.locals.streams = streams || [];
@@ -87,9 +87,12 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
     .then(function(user) {
       if (!user) return res.redirect("/404");
       res.locals.page = user;
-      return Stream.model.find({user: user._id}).populate({path: 'pictures', options: { limit: 5 }}).exec();
+      return Stream.model.find({user: user._id}).sort('-_id').populate({path: 'pictures'}).exec(function(err, docs) {
+        console.log("USERPAGE1\n", docs);
+      });
     }).
     then(function(streams) {
+      console.log("USER PAGE\n", streams);
       res.locals.streams = streams || [];
       res.render('streams');
     })
@@ -97,10 +100,11 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
 });
 
 app.get('/stream/:streamUrl', page('streampg'), auth.req, function(req, res) {
-  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate({path: 'pictures', options: { limit: 5 }}).exec()
+  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate({path: 'pictures'}).exec()
     .then(function(stream) {
+      console.log(stream);
+      stream.pictures = stream.pictures.reverse(); //TODO must be fixed
       if (!stream) return res.redirect('404');
-      var stream1 = stream.toObject();
       res.locals.stream = stream;
       res.locals.page = stream.user;
       res.render('stream');
@@ -109,6 +113,13 @@ app.get('/stream/:streamUrl', page('streampg'), auth.req, function(req, res) {
 
 // Authentication
 app.get("/404", page('login'), function(req, res) { return res.render("404"); });
+app.get("/register", page('login register'), function(req, res) { return res.render("register"); });
+app.post("/register", function(req, res, next){
+  var newUser = new User.model({username: req.body.username, password: req.body.password, email: req.body.email, sex: req.body.sex});
+  newUser.save(function(err) {
+    res.redirect("/streams");
+  });
+});
 app.get("/login", page("login"), function (req, res) {
   return res.render("login");
 });

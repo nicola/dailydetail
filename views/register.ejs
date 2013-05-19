@@ -1,0 +1,38 @@
+<% include partials/head %>
+
+<div class="container">
+  <div class="login-icon span2 offset1">
+    <h4>It's gonna be <small>QUUUUICK</small></h4>
+    <img class="icon" src="/images/icons/Magic@2x.png" alt="">
+  </div>
+
+  <form class="login-form span4" form action="/register" method="post" id="register-form">
+    <div class="inside">
+      <div class="control-group huge">
+        <input type="text" name="username" class="input-block-level login-field flat" value="" placeholder="username" id="register-name">
+        <label class="login-field-icon fui-user"></label>
+      </div>
+      <div class="control-group huge">
+        <input type="password" name="password" class="input-block-level login-field flat " value="" placeholder="password" id="register-pass">
+        <label class="login-field-icon fui-lock"></label>
+      </div>
+      <div class="control-group huge">
+        <input type="email" name="email" class="input-block-level login-field flat " value="" placeholder="email" id="register-email">
+        <label class="login-field-icon fui-mail"></label>
+      </div>
+
+      <a class="login-link" href="/login">Oh no! I already have an account!</a>
+      <input name="sex" type="hidden" id="register-sex">
+    </div>
+  </form>
+  <div class="login-icon span2 roundfaces" id="step2">
+    <div class="inside">
+      <a class="roundface inactive" href="#" data-input="f"><img src="/images/icons/Dude@2x.png"></a>
+      <a class="roundface inactive" href="#" data-input="m"><img src="/images/icons/Girl@2x.png"></a>
+    </div>
+  </div>
+  <div class="login-icon span2" id="step3">
+    <button id="createUser" class="btn btn-primary btn-large btn-warning btn-embossed btn-block" href="#">Create!</button>
+  </div>
+</div>
+<% include partials/foot %>

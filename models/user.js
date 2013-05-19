@@ -6,6 +6,7 @@ mongoose.model("User", new Schema({
   username: String,
   password: String,
   email: String,
+  sex: String,
   streams: [{ type: Schema.ObjectId, ref: 'Stream' }]
 }));
 module.exports = {

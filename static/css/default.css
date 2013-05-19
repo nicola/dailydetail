@@ -1,3 +1,24 @@
+.roundface {
+  background-color: #fff;
+  border-radius: 999px;
+  overflow: hidden;
+  display: inline-block;
+}
+.roundface img {
+  width: 100px;
+}
+.roundfaces .roundface.inactive {
+  opacity: 0.6;
+}
+.roundfaces:hover .roundface {
+  background-color: rgba(255, 255, 255, 0);
+  opacity: 0.7;
+}
+.roundfaces:hover .roundface:hover,
+.roundfaces:hover .roundface.active {
+  background-color: #ffffff;
+  opacity: 1;
+}
 #sidebar {
   background-color: #1abc9c;
   color: white;
@@ -337,4 +358,14 @@ body.index > .container {
     display: inline-table;
     border-bottom: 0px;
   }
+}
+#step2 .inside {
+  margin-top: 25px;
+  text-align: center;
+}
+#step2 a {
+  margin-bottom: 10px;
+}
+#step3 {
+  vertical-align: middle;
 }
