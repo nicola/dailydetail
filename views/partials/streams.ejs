@@ -1,3 +1,4 @@
+
 <div class="span8 offset3" id="wrapper">
   <header>
     <input type="text" name="search" class="input-block-level flat " value="" placeholder="Want to look something in particular?" id="login-pass">
@@ -7,16 +8,7 @@
       <% include ./streamunit %>
     <% }) %>
     <% if (String(page._id) == String(user._id) ) { %>
-    <div class="stream">
-      <div class="previews faden">
-        <div class="preview deg30"></div>
-        <div class="preview deg30m"></div>
-        <div class="preview"></div>
-        <div class="default">
-          <h4><a href="#newStream" role="button" data-toggle="modal">Create new</a></h4>
-        </div>
-      </div>
-    </div>
+    <% include ./createnew %>
     <div id="droppable">
       <span class="icon fui-trash"></span>
     </div>

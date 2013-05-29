@@ -19,6 +19,35 @@
   background-color: #ffffff;
   opacity: 1;
 }
+.index .roundfaces {
+  margin-top: 20px;
+}
+.index .roundfaces .squareface,
+.index .roundfaces .roundface {
+  display: inline-block;
+  vertical-align: middle;
+}
+.index .roundface {
+  height: 130px;
+  border-radius: 999px;
+  margin-top: 60px;
+}
+.index .roundface.small {
+  margin-top: 10px;
+  height: 40px;
+  width: 40px;
+  border: 5px solid #fff;
+}
+.index .roundface {
+  width: 130px;
+  background-color: #fff;
+  margin: 0 auto;
+  background-position: center center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  border: 5px solid #fff;
+  margin-top: 20px;
+}
 #sidebar {
   background-color: #1abc9c;
   color: white;
@@ -59,9 +88,11 @@
   width: 40px;
   border: 5px solid #fff;
 }
+#sidebar .centred {
+  margin: 0 30px;
+}
 #sidebar .user-list {
   list-style: none;
-  margin: 0 30px;
   font-weight: 200;
 }
 #sidebar .user-list li {
@@ -87,12 +118,13 @@
 body {
   background-color: #ecf0f1;
 }
-body.login,
 body.index {
+  background-color: #ffffff;
+}
+body.login {
   background-color: #1abc9c;
 }
-body.login > .container,
-body.index > .container {
+body.login > .container {
   margin-top: 160px;
   margin-bottom: 120px;
 }
@@ -146,7 +178,7 @@ body.index > .container {
 .stream {
   float: left;
   width: 230px;
-  margin-right: 60px;
+  margin-right: 10px;
   margin-bottom: 60px;
 }
 .previews {

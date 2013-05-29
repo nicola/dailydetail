@@ -11,11 +11,11 @@
     </div>
     <% } %>
     <div class="preview">
-      <div class="image" <% if (stream.pictures.length > 0) { %>style="background-image: url('<%= stream.pictures[0].path %>')"<% } %>></div>
+      <a href="<%- urlStream(stream) %>"><div class="image" <% if (stream.pictures.length > 0) { %>style="background-image: url('<%= stream.pictures[0].path %>')"<% } %>></div></a>
     <div class="details">
       <strong><%- linkStream(stream) %></strong>
-      <span class="detail"><i class="fui-heart"></i> 32</span>
-      <span class="detail"><i class="fui-eye"></i> 32</span>
+      <span class="detail"><i class="fui-heart"></i> <%= stream.likes.length %></span>
+      <span class="detail"><i class="fui-eye"></i> <%= stream.hits %></span>
       <span class="detail"><i class="fui-image"></i> <%= stream.pictures.length %></span>
     </div>
   </div>

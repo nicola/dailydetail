@@ -4,7 +4,7 @@
   <div id="sidebar" class="span3 side">
     <% include partials/user_actions %>
     <div class="roundfaces">
-      <a href="/user/<%= page.username %>" class="roundface small" style="background-image: url(/images/testimg.png)"></a>
+      <a href="/user/<%= page.username %>" class="roundface small" style="background-image: url(<%= pictureUrl(page) %>)"></a>
       <a href="/stream/<%= stream.url%>"><img src="<%= stream.pictures[0] ? stream.pictures[0].path : '/images/icons/Camera@2x.png' %>" alt="" class="squareface"></a>
       <h4><%- linkUser(page)%> / <%- linkStream(stream, "text-info")%></h4>
     </div>

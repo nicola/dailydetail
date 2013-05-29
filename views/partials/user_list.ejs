@@ -1,14 +1,33 @@
 <% if (bodyClass === "user") { %>
+
 <ul class="user-list">
   <li><strong><i class="fui-user"></i>&nbsp;&nbsp; Bio</strong>: <%= page.description %></li>
   <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Likes</strong>: 30</li>
   <li><strong><i class="fui-image"></i>&nbsp;&nbsp; Foci</strong>: <%= page.streams.length %></li>
 </ul>
+
+<div class="centred">
+  <% if (sameUser(page, user)) { %>
+  <a href="#profileEditModal" role="button" data-toggle="modal" class="btn btn-warning btn-block">Update profile</a>
+  <% } %>
+</div>
+
 <% } else if (bodyClass === "streampg") { %>
+
 <ul class="user-list">
   <li><strong><i class="fui-image"></i>&nbsp;&nbsp; Description</strong>: <%= stream.description %></li>
-  <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Likes</strong>: 30</li>
-  <li><strong><i class="fui-eye"></i>&nbsp;&nbsp; Views</strong>: 30</li>
-  <li><strong><i class="fui-photo"></i>&nbsp;&nbsp; Pics</strong>: <%= stream.pictures.length %></li>
+  <li><strong><i class="fui-heart"></i>&nbsp;&nbsp; Likes</strong>: <%= stream.likes.length %></li>
+  <li><strong><i class="fui-eye"></i>&nbsp;&nbsp; Views</strong>: <%= stream.hits %></li>
+  <li class="pics"><strong><i class="fui-photo"></i>&nbsp;&nbsp; Pics</strong>: <span class="n"><%= stream.pictures.length %></span></li>
 </ul>
+
+<div class="centred">
+
+  <% if (user && stream.likes && stream.likes.indexOf(user._id) < 0) { %>
+    <a href="#" class="go-follow btn btn-warning btn-block" data-subject="<%= stream._id %>">Follow</a>
+  <% } else if (user) { %>
+    <a href="#" class="go-follow btn btn-info btn-block" data-subject="<%= stream._id %>">Following</a>
+  <% } %>
+
+</div>
 <% } %>

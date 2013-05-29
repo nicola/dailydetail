@@ -8,7 +8,9 @@ mongoose.model("Stream", new Schema({
   description: String,
   tags: [String],
   url: String,
-  pictures: [{ type: Schema.ObjectId, ref: 'Picture' }]
+  pictures: [{ type: Schema.ObjectId, ref: 'Picture' }],
+  likes: [{type: Schema.ObjectId, ref: 'User'}],
+  hits: Number
 }));
 
 module.exports = {

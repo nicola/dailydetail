@@ -1,0 +1,21 @@
+<div id="profileEditModal" class="modal hide fade" tabindex="-1" role="dialog">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4>Upload avatar</h4>
+  </div>
+  <div class="modal-body">
+    <form id="uploadAvatarForm" class="login-form" enctype="multipart/form-data">
+      <div class="control-group huge">
+        <div class="controls">
+          <input type="file" name="upload" id="newPictureAvatarUpload">
+          <label class="login-field-icon fui-photo"></label>
+        </div>
+      </div>
+      <div id="progressAvatar" class="progress"><div class="bar" style="width: 0%;"></div></div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button id="saveProfile" class="btn btn-primary btn-large btn-embossed btn-block">Update</button>
+    <a href="#" class="login-link"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+  </div>
+</div>

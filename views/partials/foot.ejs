@@ -3,6 +3,7 @@
 <% include ../modals/deletestream %>
 <% include ../modals/upload %>
 <% include ../modals/settings %>
+<% include ../modals/profileedit %>
 
 <script src="/js/jquery-1.8.3.min.js"></script>
 <script src="/js/jquery-ui-1.10.3.custom.min.js"></script>
@@ -25,6 +26,7 @@
   Picture.prototype.delete = function() {};
   Picture.prototype.add = function(title, link) {
     $(".squareface").attr("src", link);
+    $(".user-list .pics .n").html(+$(".user-list .pics .n").html()+1);
     $(".pictures").prepend(
     '<div class="picture"> \
         <img src="http://nicolaretina.local:1200'+link+'" alt="'+title+'"> \
@@ -76,6 +78,30 @@
       type = file.type;
       //your validation
     });
+    $('#saveProfile').live('click', function() {
+      console.log("click");
+      var formData = new FormData(document.getElementById('uploadAvatarForm'));
+      $.ajax({
+        url: '/api/v1/user',
+        type: 'PUT',
+        xhr: function() {  // custom xhr
+          var myXhr = $.ajaxSettings.xhr();
+          if(myXhr.upload){
+            myXhr.upload.addEventListener('progressAvatar',progressHandlingFunction, false); // for handling the progress of the upload
+          }
+          return myXhr;
+        },
+        success: function(data) {
+          console.log("done", data);
+          $(".modal").modal('hide');
+        },
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false
+      });
+
+    });
     $('#savePicture').live('click', function(){
       var formData = new FormData(document.getElementById('uploadForm'));
       var id = $(this).attr("data-subject");
@@ -110,6 +136,13 @@
     go(".go-delete", "#deleteStreamModal", "deleteStream_tpl");
     go(".go-settings", "#streamSettingsModal", "streamSettings_tpl");
     go(".go-upload", "#uploadModal", "upload_tpl");
+
+    $('.go-follow').live('click', function(e) {
+      var id = $(this).attr("data-subject");
+      $.ajax("/api/v1/stream/" + id + "/likes", { type: "POST", success: function(data) {
+        console.log(data);
+      }})
+    });
 
     $('#deleteStream').live('click', function(e){
       var id = $(this).attr("data-subject");
@@ -158,6 +191,7 @@
         var updatedStream = new Stream(id);
         updatedStream.update(data);
         $(".modal").modal('hide');
+        window.location = "/stream"+data.url;
       }});
     });
 

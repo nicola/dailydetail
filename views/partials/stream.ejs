@@ -1,9 +1,11 @@
 <div class="span8 offset3" id="wrapper">
   <h4><%- linkStream(stream) %></h4>
   <div id="userInteract" class="go-group btn-group" data-subject="<%= stream._id %>" data-title="<%= stream.title %>" data-url="<%= stream.url %>" data-description="<%= stream.description %>">
+    <% if (sameUser(page, user)) { %>
     <a class="go-upload btn btn-primary btn-embossed"><i class="fui-upload"></i></a>
     <a class="go-settings btn btn-primary btn-embossed"><span class="fui-new"></span></a>
-    <% if (String(page._id) == String(user._id)) { %><a class="go-delete btn btn-danger btn-embossed"><i class="fui-cross"></i></a><% } %>
+    <a class="go-delete btn btn-danger btn-embossed"><i class="fui-cross"></i></a>
+    <% } %>
   </div>
   <hr>
   <% if (stream.pictures.length === 0) { %>

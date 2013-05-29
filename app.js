@@ -26,6 +26,9 @@ function page(id) {
   }
 }
 
+app.locals.urlStream = function(stream) {
+  return '/stream/'+stream.url;
+};
 app.locals.linkStream = function(stream, classes) {
   classes = classes ?  'class="'+classes+'"' : "";
   return '<a href="/stream/'+stream.url+'" '+classes+'>'+stream.title+'</a>';
@@ -33,6 +36,21 @@ app.locals.linkStream = function(stream, classes) {
 app.locals.linkUser = function(user, classes) {
   classes = classes ?  'class="'+classes+'"' : "";
   return '<a href="/user/'+user.username+'" '+classes+'>'+user.username+'</a>';
+};
+app.locals.urlUser = function (user) {
+  return '/user/'+user.username;
+};
+
+app.locals.pictureUrl = function (user) {
+  return (user && user.avatar) ? user.avatar : "/images/testimg.png";
+};
+
+app.locals.page = function (page) {
+  return app.locals.bodyClass === page;
+};
+
+app.locals.sameUser = function(user1, user2) {
+  return (String(user1._id) == String(user2._id))
 };
 
 ejs.filters.sayHi = function(name) {
@@ -63,13 +81,15 @@ app.configure(function () {
 
 
 app.get('/', page("index"), auth.req, auth.logged, function(req, res) {
-  Stream.model.find({}).sort('-_id').limit(5).populate('user').populate({path: 'pictures'}).exec()
+  Stream.model.find({}).sort('-_id').populate('user').populate({path: 'pictures'}).exec()
     .then(function(streams) {
-      res.locals.page = req.user;
-      res.locals.streams = streams;
-      res.render("index");
+      User.model.find({}, function(err, users) {
+        res.locals.page = req.user;
+        res.locals.streams = streams;
+        res.locals.users = users;
+        res.render("index");
+      })
     })
-    .end();
 });
 
 app.get('/streams', page("user"), auth.req, auth.logged, function(req, res) {
@@ -88,11 +108,11 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
       if (!user) return res.redirect("/404");
       res.locals.page = user;
       return Stream.model.find({user: user._id}).sort('-_id').populate({path: 'pictures'}).exec(function(err, docs) {
-        console.log("USERPAGE1\n", docs);
+        // console.log("USERPAGE1\n", docs);
       });
     }).
     then(function(streams) {
-      console.log("USER PAGE\n", streams);
+      // console.log("USER PAGE\n", streams);
       res.locals.streams = streams || [];
       res.render('streams');
     })
@@ -100,15 +120,18 @@ app.get('/user/:userUsername', page("user"),  auth.req, function(req, res) {
 });
 
 app.get('/stream/:streamUrl', page('streampg'), auth.req, function(req, res) {
-  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate({path: 'pictures'}).exec()
-    .then(function(stream) {
-      console.log(stream);
-      stream.pictures = stream.pictures.reverse(); //TODO must be fixed
+  Stream.model.findOne({url:req.params.streamUrl}).populate('user').populate({path: 'pictures'}).exec(function(err, stream) {
+      if (err) { console.log(err); res.redirect('404'); }
       if (!stream) return res.redirect('404');
+      if (!stream.hits) stream.hits = 1;
+      stream.hits++;
+      stream.save(); // TODO refactor this
+      // console.log(stream);
+      stream.pictures = stream.pictures.reverse(); //TODO must be fixed
       res.locals.stream = stream;
       res.locals.page = stream.user;
       res.render('stream');
-    });
+  });
 });
 
 // Authentication
@@ -129,19 +152,32 @@ app.get('/logout', function (req, res) { req.logout(); res.redirect('/'); });
 
 // Routes and API
 
-app.post('/api/v1/stream', auth.req, auth.logged, function(req, res) {
+app.put('/api/v1/user', auth.logged_api, function(req, res) {
+  var toUpdate = {};
+  if (req.files && req.files.upload) toUpdate.avatar = req.files.upload.path.replace(__dirname+"/static", '');
+  if (req.body.password) toUpdate.password = req.body.password;
+  console.log(toUpdate);
+  if (toUpdate === {}) return res.json("OK");
+  User.model.update({_id: req.user._id}, toUpdate, function(err, data){
+    if (err) {console.log(err); res.json(500, err); }
+    console.log(data);
+    res.json("OK");
+  })
+});
+
+app.post('/api/v1/stream', auth.req, auth.logged_api, function(req, res) {
   var newStream = new Stream.model({user: req.user._id, title: req.body.title, description: req.body.description, url: req.body.url});
   Q.when(
     qm.save(newStream),
-    qm.exec(User.model.update(req.user._id, { $addToSet: { streams: newStream } }))
+    qm.exec(User.model.update({_id: req.user._id}, { $addToSet: { streams: newStream } }))
   ).then(function(args) {
     res.json(args);
   }).done();
 });
 
-app.del('/api/v1/stream/:streamId', function(req, res) {
+app.del('/api/v1/stream/:streamId', auth.logged_api, function(req, res) {
   Q.when(
-    qm.exec(User.model.update(req.user._id, { $pull: {streams: req.params.streamId } })),
+    qm.exec(User.model.update({_id: req.user._id}, { $pull: {streams: req.params.streamId } })),
     qm.exec(Stream.model.remove({_id: req.params.streamId})),
     qm.exec(Picture.model.remove({stream: req.params.streamId}))
   ).then(function(args) {
@@ -150,16 +186,16 @@ app.del('/api/v1/stream/:streamId', function(req, res) {
   }).done();
 });
 
-app.put('/api/v1/stream/:streamId', function(req, res) {
+app.put('/api/v1/stream/:streamId', auth.logged_api, function(req, res) {
   Q.when(
-    qm.exec(Stream.model.update(req.params.streamId, {url: req.body.url, title: req.body.title, description: req.body.description}))
+    qm.exec(Stream.model.update({_id: req.params.streamId}, {url: req.body.url, title: req.body.title, description: req.body.description}))
   ).then(function(args){
     console.log(args);
     res.json(args[0]);
   });
 });
 
-app.post('/api/v1/stream/:streamId', function(req, res) {
+app.post('/api/v1/stream/:streamId', auth.logged_api, function(req, res) {
   Stream.model.findById(req.params.streamId).exec(function(err, stream) {
     console.log("upload into", stream);
     if (err || !stream) return res.json(500, {message:"Nothing found"});
@@ -182,6 +218,17 @@ app.post('/api/v1/stream/:streamId', function(req, res) {
   });
 });
 
+app.post('/api/v1/stream/:streamId/likes', auth.logged_api, function(req, res) {
+  console.log("user", req.params.streamId, req.user._id);
+  Stream.model.findOneAndUpdate(
+    { _id: req.params.streamId},
+    { $addToSet: { likes: req.user._id } },
+    function(err, data) {
+      if (err || !data) { console.log(err); return res.json(500, err); }
+      console.log("Added", req.params.streamId, data._id, data, err);
+      res.json("OK");
+    });
+});
 
 
 // API - Collection

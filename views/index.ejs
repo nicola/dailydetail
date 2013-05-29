@@ -1,11 +1,42 @@
 <% include partials/head %>
-<% include partials/user_actions %>
-<div class="container" id="wrapper">
-  <div class="streams">
-  <% streams.forEach(function(stream){ %>
-    <% include partials/streamunit %>
-  <% }) %>
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="row">
+    <h1 class="demo-headline">DailyDetail</h1>
   </div>
+  <div class="demo-row">
+    <div class="demo-title"><h3>What is this?</h3></div>
+    <div class="demo-content demo-content-article">
+      <p>
+        Details happen anywhere.
+        <br>Mega cool dude is what I would say, without saying "Mega"
+      </p>
+      <% if (!user) { %>
+       <a href="/login" class="btn btn-warning btn-huge">Login</a>
+       <a href="/login" class="btn btn-danger btn-huge">Sign up</a>
+      <% } else { %>
+      <a  href="#newStream" role="button" data-toggle="modal" class="btn btn-info btn-huge">Create stream</a>
+      <a href="/streams" class="btn btn-primary btn-huge">My streams</a>
+      <a href="/logout" class="btn btn-danger btn-huge">Log out</a>
+      <% } %>
+    </div>
+  </div>
+  <div class="row" id="wrapper">
+    <div class="streams">
+    <% streams.forEach(function(stream){ %>
+      <% include partials/streamunit %>
+    <% }) %>
+    <% if (user) { %> <% include partials/createnew %> <% } %>
+    </div>
+  </div>
+  <div class="row" id="wrapper2">
+    <div class="roundfaces">
+      <% users.forEach(function(one){ %>
+        <a href="<%= urlUser(one) %>"><div class="roundface" style="background-image: url(<%= pictureUrl(one) %>)"></div></a>
+      <% }) %>
+    </div>
+  </div>
+
 </div>
 
 <% include partials/foot %>

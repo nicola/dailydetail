@@ -7,6 +7,7 @@ mongoose.model("User", new Schema({
   password: String,
   email: String,
   sex: String,
+  avatar: String,
   streams: [{ type: Schema.ObjectId, ref: 'Stream' }]
 }));
 module.exports = {
