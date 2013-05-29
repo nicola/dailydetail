@@ -9,4 +9,4 @@ if (process.env.REDISTOGO_URL) {
 	store = redis.createClient();
 }
 exports.Redis = store;
-exports.MongoDB = mongoose.connect(process.env.MONGOHQ_URL || "mongodb://localhost/daily4");
+exports.MongoDB = mongoose.connect(process.env.MONGOHQ_URL || "mongodb://localhost/daily5");

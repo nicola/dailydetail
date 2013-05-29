@@ -9,7 +9,7 @@
   </div>
   <hr>
   <% if (stream.pictures.length === 0) { %>
-    <% if (user) { %>
+  <% if (sameUser(page, user)) { %>
   <div id="nopics" class="alert alert-success">
     <button type="button" class="close fui-cross" data-dismiss="alert"></button>
     <h3>Cannot find inspiration?</h3>
